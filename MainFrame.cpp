@@ -20,6 +20,8 @@ public:
     }
 
     void onTimer( wxTimerEvent & event );
+    void onPaint( wxPaintEvent & event );
+    void doDrawing( wxDC & dc );
 
 protected:
     std::mt19937        m_Random;
@@ -40,6 +42,7 @@ MainFrame::MainFrame( const wxString& title )
     m_Panel = new wxPanel( this, -1 );
 
     Bind( wxEVT_TIMER, &MainFrame::onTimer, this );
+    m_Panel->Bind( wxEVT_PAINT, &MainFrame::onPaint, this );
     m_Timer.SetOwner( this );
     m_Timer.Start( 1000 );
 }
@@ -47,7 +50,22 @@ MainFrame::MainFrame( const wxString& title )
 
 void MainFrame::onTimer( wxTimerEvent& event )
 {
+#if 0
     wxClientDC dc( m_Panel );
+    doDrawing( dc );
+#else
+    Refresh();
+#endif
+}
+
+void MainFrame::onPaint( wxPaintEvent& event )
+{
+    wxPaintDC dc( m_Panel );
+    doDrawing( dc );
+}
+
+void MainFrame::doDrawing( wxDC & dc )
+{
     wxSize rct = m_Panel->GetClientSize();
     static int color = 0;
 
