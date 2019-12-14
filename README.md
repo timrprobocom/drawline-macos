@@ -12,4 +12,12 @@ back to 600 lines to get any timing at all:
 | 3.0.4 | Linux | 2.7GHz i7 | 6000 |35 million |
 | 3.0.4 | MacOS | 2.2GHz i7 | 600 | 5 BILLION (2.5 seconds) |
 
-This seems suboptimal.
+This seems suboptimal.  Note that wxClientDC and wxPaintDC behave 
+identically.
+
+## Short Followup
+
+If I do the drawing as 60 calls with 100 in each call, I can draw all
+6,000 lines on the Mac in 100M cycles.  If I do them as 30 calls with
+200 in each, it takes 30 times as long.  And, a noted above, one call of
+600 lines takes 50 times as long.  The time is exponential.

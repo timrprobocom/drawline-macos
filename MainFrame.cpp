@@ -50,7 +50,7 @@ MainFrame::MainFrame( const wxString& title )
 
 void MainFrame::onTimer( wxTimerEvent& event )
 {
-#if 0
+#if 1
     wxClientDC dc( m_Panel );
     doDrawing( dc );
 #else
@@ -94,7 +94,13 @@ void MainFrame::doDrawing( wxDC & dc )
         pts.emplace_back( distribution(m_Random), distribution(m_Random) );
 
     int64_t tBefore = __rdtsc();
+#if 1
     dc.DrawLines( pts.size(), pts.data() );
+#else
+#define INTERVAL 100
+    for( int i = 0; i < 6000; i+=INTERVAL )
+        dc.DrawLines( INTERVAL, &pts[i] );
+#endif
     int64_t tAfter = __rdtsc();
     wxDO_LOG(Debug)("Elapsed: %lld", tAfter-tBefore);
 }
