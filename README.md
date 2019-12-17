@@ -20,4 +20,7 @@ identically.
 If I do the drawing as 60 calls with 100 in each call, I can draw all
 6,000 lines on the Mac in 100M cycles.  If I do them as 30 calls with
 200 in each, it takes 30 times as long.  And, a noted above, one call of
-600 lines takes 50 times as long.  The time is exponential.
+600 lines takes 50 times as long.  The time is quadratic.
+
+If I do 6,000 individual calls to DrawLine, the behavior is reasonable,
+although it takes 400ms in total.
