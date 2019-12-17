@@ -106,7 +106,6 @@ void MainFrame::doDrawing( wxDC & dc )
     for( int i = 0; i < 6000; i+=INTERVAL )
         dc.DrawLines( INTERVAL, &pts[i] );
 #endif
-    int64_t tAfter = __rdtsc();
     wxDO_LOG(Debug)("Elapsed: %ldms", sw.Time() );
 }
 
