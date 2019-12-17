@@ -93,16 +93,21 @@ void MainFrame::doDrawing( wxDC & dc )
     for( int i = 0; i < 6000; i++ )
         pts.emplace_back( distribution(m_Random), distribution(m_Random) );
 
-    int64_t tBefore = __rdtsc();
+    wxStopWatch sw;
 #if 1
     dc.DrawLines( pts.size(), pts.data() );
-#else
+#endif
+#if 0
+    for( int i = 0; i < 5999; i++ )
+        dc.DrawLine( pts[i], pts[i+1] );
+#endif
+#if 0
 #define INTERVAL 100
     for( int i = 0; i < 6000; i+=INTERVAL )
         dc.DrawLines( INTERVAL, &pts[i] );
 #endif
     int64_t tAfter = __rdtsc();
-    wxDO_LOG(Debug)("Elapsed: %lld", tAfter-tBefore);
+    wxDO_LOG(Debug)("Elapsed: %ldms", sw.Time() );
 }
 
 //
